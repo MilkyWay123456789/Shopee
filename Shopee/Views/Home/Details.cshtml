@@ -1,0 +1,63 @@
+﻿@model Shopee.Models.Product
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_ShopeeLayout.cshtml";
+}
+
+<div class="app__container">
+    <div class="grid wide">
+        <div class="home-product-details">
+            <img src="@Model.Picture" alt="" class="home-product-details-img">
+            <div class="home-product-details-description">
+                <span class="home-product-details-label">Yêu thích+</span>
+                <span class="home-product-details-name">@Model.Name</span>
+                <div class="home-product-details-ex">
+                    <div class="home-product-details-rate">
+                        <span class="home-product-details-rate-number">4.9</span>
+                        <i class="home-product-details-icon fas fa-star"></i>
+                        <i class="home-product-details-icon fas fa-star"></i>
+                        <i class="home-product-details-icon fas fa-star"></i>
+                        <i class="home-product-details-icon fas fa-star"></i>
+                        <i class="home-product-details-icon fas fa-star"></i>
+                    </div>
+                    <div class="home-product-details-expected">
+                        <span class="home-product-details-expected-number">@Model.Review k</span>
+                        <span class="home-product-details-expected-label">Đánh giá</span>
+                    </div>
+                    <div class="home-product-details-bought">
+                        <span class="home-product-details-bought-number">@Model.Bought k</span>
+                        <span class="home-product-details-bought-label">Đã bán</span>
+                        <i class="home-product-details-bought-icon fas fa-circle-question"></i>
+                    </div>
+                </div>
+                <div class="home-product-details__price">
+                    <span class="home-product-item__price-old">@Model.OldPrice đ</span>
+                    <span class="home-product-item__price-current">@Model.NewPrice đ</span>
+                </div>
+                <div class="home-product-details-sale">
+                    <span class="home-product-details-sale-label">Mã sale</span>
+                    <span class="home-product-details-sale-number">@Model.Sale k</span>
+                </div>
+                <div class="home-product-details-travel">
+                    <span class="home-product-details-travel-label">Vận chuyển</span>
+                    <span class="home-product-details-travel-word">@Model.Travel </span>
+                </div>
+                <div class="home-product-details-count">
+                    <span class="home-product-details-count-label">Số lượng</span>
+                    <span class="home-product-details-apart">-</span>
+                    <span class="home-product-details-number">@Model.Count</span>
+                    <span class="home-product-details-add">+</span>
+                    <span class="home-product-details-word">100 sản phẩm có sẵn</span>
+                </div>
+                <div class="home-product-details-cart">
+                    <div class="home-product-details-cart-item">
+                        <i class="fas fa-cart-plus"></i>
+                        <span class="home-product-details-cart-label">Thêm vào giỏ hàng</span>
+                    </div>
+                    <div class="btn btn--primary">Mua hàng</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
