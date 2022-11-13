@@ -1,1 +1,34 @@
+﻿@model Shopee.Models.Member
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_ShopeeLayout.cshtml";
+}
 
+<div class="grid wide">
+        <div class="user">
+            <span class="user__heading">Thông tin người dùng</span>
+            <form method="post" action="@Url.Action("Save","Member")" enctype="multipart/form-data">
+                <div class="card-body">
+                    <input type="hidden" value="@Model.Id" name="Id" />
+                    <div class="form-group">
+                        <span class="user__label">Tên người dùng</span>
+                        <input type="text" class="form-control" name="Name" value="@Model.Name">
+                    </div>
+                    <div class="form-group">
+                        <span class="user__label user__label-email">Email</span>
+                        <input type="text" class="form-control" name="Email" value="@Model.Email">
+                    </div>
+                    <div class="form-group">
+                        <span class="user__label user__label-image">Hình ảnh</span>
+                        <input type="file" class="form-control" name="Picture">
+                    </div>
+                    <div class="form-group">
+                        <span class="user__label user__label-password">Mật khẩu</span>
+                        <input type="password" class="form-control" name="Password" value="@Model.Password">
+                    </div>
+                    </br>
+                    <button type="submit" class="btn btn--primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+</div>
