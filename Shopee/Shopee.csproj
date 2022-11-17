@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -46,15 +47,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -63,6 +67,12 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -125,21 +135,55 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\CategoriesController.cs" />
+    <Compile Include="Api\MembersController.cs" />
+    <Compile Include="Api\ProductsController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CredentialController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GroupController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HasCredentialAttribute.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MemberController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\PurchaseController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Administrator.cs">
+      <DependentUpon>ShopeeContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Category.cs">
+      <DependentUpon>ShopeeContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Credential.cs">
+      <DependentUpon>ShopeeContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Group.cs">
       <DependentUpon>ShopeeContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Member.cs">
       <DependentUpon>ShopeeContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product.cs">
+      <DependentUpon>ShopeeContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductOfMember.cs">
+      <DependentUpon>ShopeeContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Purchase.cs">
+      <DependentUpon>ShopeeContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs">
       <DependentUpon>ShopeeContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ShopeeContext.Context.cs">
@@ -160,6 +204,63 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\assets\css\cs-skin-elastic.css" />
+    <Content Include="Areas\Admin\assets\css\lib\chosen\chosen-sprite%402x.png" />
+    <Content Include="Areas\Admin\assets\css\lib\chosen\chosen-sprite.png" />
+    <Content Include="Areas\Admin\assets\css\lib\chosen\chosen.css" />
+    <Content Include="Areas\Admin\assets\css\lib\chosen\chosen.min.css" />
+    <Content Include="Areas\Admin\assets\css\lib\datatable\buttons.bootstrap.min.css" />
+    <Content Include="Areas\Admin\assets\css\lib\datatable\buttons.dataTables.min.css" />
+    <Content Include="Areas\Admin\assets\css\lib\datatable\dataTables.bootstrap.min.css" />
+    <Content Include="Areas\Admin\assets\css\lib\vector-map\jqvmap.min.css" />
+    <Content Include="Areas\Admin\assets\css\style.css" />
+    <Content Include="Areas\Admin\assets\fonts\icomoon\icomoon.svg" />
+    <Content Include="Areas\Admin\assets\fonts\icomoon\index.html" />
+    <Content Include="Areas\Admin\assets\images\admin.jpg" />
+    <Content Include="Areas\Admin\assets\images\avatar\1.jpg" />
+    <Content Include="Areas\Admin\assets\images\avatar\2.jpg" />
+    <Content Include="Areas\Admin\assets\images\avatar\3.jpg" />
+    <Content Include="Areas\Admin\assets\images\avatar\4.jpg" />
+    <Content Include="Areas\Admin\assets\images\avatar\5.jpg" />
+    <Content Include="Areas\Admin\assets\images\avatar\6.jpg" />
+    <Content Include="Areas\Admin\assets\images\avatar\64-1.jpg" />
+    <Content Include="Areas\Admin\assets\images\avatar\64-2.jpg" />
+    <Content Include="Areas\Admin\assets\images\favicon.png" />
+    <Content Include="Areas\Admin\assets\images\logo.png" />
+    <Content Include="Areas\Admin\assets\images\logo2.png" />
+    <Content Include="Areas\Admin\assets\js\dashboard.js" />
+    <Content Include="Areas\Admin\assets\js\init\chartjs-init.js" />
+    <Content Include="Areas\Admin\assets\js\init\datatables-init.js" />
+    <Content Include="Areas\Admin\assets\js\init\flot-chart-init.js" />
+    <Content Include="Areas\Admin\assets\js\init\fullcalendar-init.js" />
+    <Content Include="Areas\Admin\assets\js\init\gmap-init.js" />
+    <Content Include="Areas\Admin\assets\js\init\peitychart-init.js" />
+    <Content Include="Areas\Admin\assets\js\init\vector-init.js" />
+    <Content Include="Areas\Admin\assets\js\init\weather-init.js" />
+    <Content Include="Areas\Admin\assets\js\lib\chosen\chosen.jquery.js" />
+    <Content Include="Areas\Admin\assets\js\lib\chosen\chosen.jquery.min.js" />
+    <Content Include="Areas\Admin\assets\js\lib\chosen\chosen.proto.js" />
+    <Content Include="Areas\Admin\assets\js\lib\chosen\chosen.proto.min.js" />
+    <Content Include="Areas\Admin\assets\js\lib\data-table\buttons.bootstrap.min.js" />
+    <Content Include="Areas\Admin\assets\js\lib\data-table\buttons.colVis.min.js" />
+    <Content Include="Areas\Admin\assets\js\lib\data-table\buttons.flash.min.js" />
+    <Content Include="Areas\Admin\assets\js\lib\data-table\buttons.html5.min.js" />
+    <Content Include="Areas\Admin\assets\js\lib\data-table\buttons.print.min.js" />
+    <Content Include="Areas\Admin\assets\js\lib\data-table\dataTables.bootstrap.min.js" />
+    <Content Include="Areas\Admin\assets\js\lib\data-table\dataTables.buttons.min.js" />
+    <Content Include="Areas\Admin\assets\js\lib\data-table\datatables.min.js" />
+    <Content Include="Areas\Admin\assets\js\lib\data-table\jquery-1.12.4.js" />
+    <Content Include="Areas\Admin\assets\js\lib\data-table\jquery.dataTables.min.js" />
+    <Content Include="Areas\Admin\assets\js\lib\data-table\jszip.min.js" />
+    <Content Include="Areas\Admin\assets\js\lib\data-table\pdfmake.min.js" />
+    <Content Include="Areas\Admin\assets\js\lib\data-table\vfs_fonts.js" />
+    <Content Include="Areas\Admin\assets\js\lib\gmap\gmapApi.js" />
+    <Content Include="Areas\Admin\assets\js\lib\gmap\gmaps.js" />
+    <Content Include="Areas\Admin\assets\js\lib\gmap\gmaps.min.js" />
+    <Content Include="Areas\Admin\assets\js\main.js" />
+    <Content Include="Areas\Admin\assets\js\vmap.sampledata.js" />
+    <Content Include="Areas\Admin\assets\js\widgets.js" />
+    <Content Include="Areas\Admin\assets\scss\style.css" />
     <Content Include="assets\css\base.css" />
     <Content Include="assets\css\grid.css" />
     <Content Include="assets\css\main.css" />
@@ -2228,8 +2329,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Models\ShopeeContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ShopeeContext.Context.cs</LastGenOutput>
       <DependentUpon>ShopeeContext.edmx</DependentUpon>
+      <LastGenOutput>ShopeeContext.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\ShopeeContext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -2298,6 +2399,30 @@
     <Content Include="Models\ShopeeContext.edmx.diagram">
       <DependentUpon>ShopeeContext.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shared\_ShopeeAdmin.cshtml" />
+    <Content Include="Areas\Admin\assets\css\style.css.map" />
+    <Content Include="Areas\Admin\assets\fonts\icomoon\icomoon.eot" />
+    <Content Include="Areas\Admin\assets\fonts\icomoon\icomoon.ttf" />
+    <Content Include="Areas\Admin\assets\fonts\icomoon\icomoon.woff" />
+    <Content Include="Areas\Admin\assets\images\.gitignore" />
+    <Content Include="Areas\Admin\assets\images\logo.psd" />
+    <Content Include="Areas\Admin\assets\scss\style.css.map" />
+    <Content Include="Areas\Admin\assets\scss\style.scss" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Item.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Item.cshtml" />
+    <Content Include="Areas\Admin\Views\Member\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Member\Item.cshtml" />
+    <Content Include="Areas\Admin\Views\Member\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Role\Item.cshtml" />
+    <Content Include="Areas\Admin\Views\Group\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Group\Item.cshtml" />
+    <Content Include="Areas\Admin\Views\Group\Credential.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\NotCredential.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2322,9 +2447,18 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Member\Index.cshtml" />
+    <Content Include="Views\Home\PopularProduct.cshtml" />
+    <Content Include="Views\Home\BoughtProduct.cshtml" />
+    <Content Include="Views\Home\DescProduct.cshtml" />
+    <Content Include="Views\Home\AscProduct.cshtml" />
+    <Content Include="Views\Purchase\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\Credential\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -2375,7 +2509,10 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -1,0 +1,43 @@
+﻿@model Shopee.Models.Product
+@{
+    ViewBag.Title = "Item";
+    Layout = "~/Areas/Admin/Views/Shared/_ShopeeAdmin.cshtml";
+}
+
+<form method="post" action="@Url.Action("Save","Product")" enctype="multipart/form-data">
+    <div class="card-body">
+        <input type="hidden" value="@Model.Id" name="Id" />
+        <div class="form-group">
+            <label>Tên </label>
+            <input type="text" class="form-control" name="Name" value="@Model.Name">
+        </div>
+        <div class="form-group">
+            <label>Giá</label>
+            <input type="text" class="form-control" name="OldPrice" value="@Model.OldPrice">
+        </div>
+        <div class="form-group">
+            <label>Giá mới</label>
+            <input type="text" class="form-control" name="NewPrice" value="@Model.NewPrice">
+        </div>
+        <div class="form-group">
+            <label>Giảm giá</label>
+            <input type="text" class="form-control" name="Sale" value="@Model.Sale">
+        </div>
+        <div class="form-group">
+            <label>Đã bán</label>
+            <input type="text" class="form-control" name="Bought" value="@Model.Bought">
+        </div>
+        <div class="form-group">
+            <label>Hình Ảnh</label>
+            <input type="file" class="form-control" name="Images" placeholder="Nhập hình ảnh">
+        </div>
+        <div class="form-group">
+            <label>Doanh mục</label>
+            @Html.DropDownList("CategoryId", (SelectList)ViewBag.CategoryId, "  ------ Chọn Doanh Mục------ ", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="card-footer">
+        <button id="submit-member" class="btn btn-primary">Lưu</button>
+    </div>
+</form>
+

@@ -4,59 +4,217 @@
     Layout = "~/Views/Shared/_ShopeeLayout.cshtml";
 }
 
-<div class="app__container">
+@*<div class="app__container">
     <div class="grid wide">
-        <div class="home-product-details">
-            <img src="@Model.Picture" alt="" class="home-product-details-img">
-            <div class="home-product-details-description">
-                <span class="home-product-details-label">Yêu thích+</span>
-                <span class="home-product-details-name">@Model.Name</span>
-                <div class="home-product-details-ex">
-                    <div class="home-product-details-rate">
-                        <span class="home-product-details-rate-number">4.9</span>
-                        <i class="home-product-details-icon fas fa-star"></i>
-                        <i class="home-product-details-icon fas fa-star"></i>
-                        <i class="home-product-details-icon fas fa-star"></i>
-                        <i class="home-product-details-icon fas fa-star"></i>
-                        <i class="home-product-details-icon fas fa-star"></i>
+            <div class="home-product-details">
+                    <img src="@Model.Picture" alt="" class="home-product-details-img">
+                    <div class="home-product-details-description">
+                        <span class="home-product-details-label">Yêu thích+</span>
+                        <span class="home-product-details-name">@Model.Name</span>
+                        <div class="home-product-details-ex">
+                            <div class="home-product-details-rate">
+                                <span class="home-product-details-rate-number">4.9</span>
+                                <i class="home-product-details-icon fas fa-star"></i>
+                                <i class="home-product-details-icon fas fa-star"></i>
+                                <i class="home-product-details-icon fas fa-star"></i>
+                                <i class="home-product-details-icon fas fa-star"></i>
+                                <i class="home-product-details-icon fas fa-star"></i>
+                            </div>
+                            <div class="home-product-details-expected">
+                                <span class="home-product-details-expected-number">@Model.Review k</span>
+                                <span class="home-product-details-expected-label">Đánh giá</span>
+                            </div>
+                            <div class="home-product-details-bought">
+                                <span class="home-product-details-bought-number">@Model.Bought k</span>
+                                <span class="home-product-details-bought-label">Đã bán</span>
+                                <i class="home-product-details-bought-icon fas fa-circle-question"></i>
+                            </div>
+                        </div>
+                        <div class="home-product-details__price">
+                            <span class="home-product-item__price-old">@Model.OldPrice đ</span>
+                            <span class="home-product-item__price-current">@Model.NewPrice đ</span>
+                        </div>
+                        <div class="home-product-details-sale">
+                            <span class="home-product-details-sale-label">Mã sale</span>
+                            <span class="home-product-details-sale-number">@Model.Sale k</span>
+                        </div>
+                        <div class="home-product-details-travel">
+                            <span class="home-product-details-travel-label">Vận chuyển</span>
+                            <span class="home-product-details-travel-word">@Model.Travel </span>
+                        </div>
+                        <div class="home-product-details-count">
+                            <span class="home-product-details-count-label">Số lượng</span>
+                            <span class="home-product-details-apart">-</span>
+                            <span class="home-product-details-number">1</span>
+                            <span class="home-product-details-add">+</span>
+                            <span class="home-product-details-word">100 sản phẩm có sẵn</span>
+                        </div>
+                        @{
+                            if (Session["Members"] == null)
+                            {
+                                <div class="home-product-details-cart">
+                                    <div class="home-product-details-cart-item">
+                                        <i class="fas fa-cart-plus"></i>
+                                        <a href="#Login" class="home-product-details-cart-label">Thêm vào giỏ hàng</a>
+                                    </div>
+                                    <a href="#Login" class="btn btn--primary">Mua hàng</a>
+                                </div>
+                            }
+                            else
+                            {
+                                var member = (Shopee.Models.Member)Session["Members"];
+                                <div class="home-product-details-cart">
+                                    <div class="home-product-details-cart-item">
+                                        <i class="fas fa-cart-plus"></i>
+                                        <a href="@Url.Action("Add", "Cart", new { ProductId = Model.Id ,MemberId=member.Id})" class="home-product-details-cart-label">Thêm vào giỏ hàng</a>
+                                    </div>
+                                    <a href="@Url.Action("Index", "Cart", new {ProductId=Model.Id})" class="btn btn--primary">Mua hàng</a>
+                                </div>
+                            }
+                        }
                     </div>
-                    <div class="home-product-details-expected">
-                        <span class="home-product-details-expected-number">@Model.Review k</span>
-                        <span class="home-product-details-expected-label">Đánh giá</span>
+            </div>
+    </div>
+</div>*@
+
+<div class="product-detail">
+    <div class="grid wide">
+        <div class="row">
+            <div class="col c-12 m-6 l-5">
+                <div class="product-detail_img">
+                    <img src="@Model.Picture" alt="">
+                </div>
+                <div class="product-detail-share">
+                    <div class="product-detail__icon">
+                        Chia sẻ:
+                        <i class="fab fa-facebook"></i>
+                        <i class="fab fa-instagram"></i>
                     </div>
-                    <div class="home-product-details-bought">
-                        <span class="home-product-details-bought-number">@Model.Bought k</span>
-                        <span class="home-product-details-bought-label">Đã bán</span>
-                        <i class="home-product-details-bought-icon fas fa-circle-question"></i>
+                    <div class="product-detail__like">
+                        <i class="fas fa-heart"></i>
+                        Đã thích (5,5K)
                     </div>
-                </div>
-                <div class="home-product-details__price">
-                    <span class="home-product-item__price-old">@Model.OldPrice đ</span>
-                    <span class="home-product-item__price-current">@Model.NewPrice đ</span>
-                </div>
-                <div class="home-product-details-sale">
-                    <span class="home-product-details-sale-label">Mã sale</span>
-                    <span class="home-product-details-sale-number">@Model.Sale k</span>
-                </div>
-                <div class="home-product-details-travel">
-                    <span class="home-product-details-travel-label">Vận chuyển</span>
-                    <span class="home-product-details-travel-word">@Model.Travel </span>
-                </div>
-                <div class="home-product-details-count">
-                    <span class="home-product-details-count-label">Số lượng</span>
-                    <span class="home-product-details-apart">-</span>
-                    <span class="home-product-details-number">@Model.Count</span>
-                    <span class="home-product-details-add">+</span>
-                    <span class="home-product-details-word">100 sản phẩm có sẵn</span>
-                </div>
-                <div class="home-product-details-cart">
-                    <div class="home-product-details-cart-item">
-                        <i class="fas fa-cart-plus"></i>
-                        <span class="home-product-details-cart-label">Thêm vào giỏ hàng</span>
-                    </div>
-                    <div class="btn btn--primary">Mua hàng</div>
                 </div>
             </div>
+            <div class="col c-12 m-6 l-7">
+                <div class="product-detail__content">
+                    <div class="product-detail-label">
+                        <span class="home-product-details-label">Yêu thích+</span>
+                        <div class="product-detail__content__heading">@Model.Name</div>
+                    </div>
+                    <div class="home-product-details-ex">
+                        <div class="home-product-details-rate">
+                            <span class="home-product-details-rate-number">4.9</span>
+                            <i class="home-product-details-icon fas fa-star"></i>
+                            <i class="home-product-details-icon fas fa-star"></i>
+                            <i class="home-product-details-icon fas fa-star"></i>
+                            <i class="home-product-details-icon fas fa-star"></i>
+                            <i class="home-product-details-icon fas fa-star"></i>
+                        </div>
+                        <div class="home-product-details-expected">
+                            <span class="home-product-details-expected-number">@Model.Review k</span>
+                            <span class="home-product-details-expected-label">Đánh giá</span>
+                        </div>
+                        <div class="home-product-details-bought">
+                            <span class="home-product-details-bought-number">@Model.Bought k</span>
+                            <span class="home-product-details-bought-label">Đã bán</span>
+                            <i class="home-product-details-bought-icon fas fa-circle-question"></i>
+                        </div>
+                    </div>
+                    <div class="product-detail__price">
+                        <div class="product-detail__price-old">đ @Model.OldPrice</div>
+                        <div class="product-detail__price-new">đ @Model.NewPrice</div>
+                        <div class="product-detail__price-sale">@Model.Sale GIẢM</div>
+                    </div>
+                    <div class="product-detail__deal">
+                        <p>Deal Sốc </p>
+                        <p class="product-detail__deal-buy">Mua để nhận quà</p>
+                    </div>
+                    <div class="product-detail__transport">
+                        <p>Vận chuyển </p>
+                        <p class="product-detail__transport-text">Miễn phí vận chuyển</p>
+                    </div>
+                    <div class="product-detail__quantity">
+                        <p>Số lượng</p>
+                        <div class="product-detail__quantity-number">
+                            <button>-</button>
+                            <button>@Model.Count</button>
+                            <button>+</button>
+                        </div>
+                        <p>2 sản phẩm có sắn</p>
+                    </div>
+
+                    @{
+                        if (Session["Members"] == null)
+                        {
+                            <div class="home-product-details-cart">
+                                <div class="home-product-details-cart-item">
+                                    <i class="fas fa-cart-plus"></i>
+                                    <a href="#Login" class="home-product-details-cart-label">Thêm vào giỏ hàng</a>
+                                </div>
+                                <a href="#Login" class="btn btn--primary">Mua hàng</a>
+                            </div>
+                        }
+                        else
+                        {
+                            var member = (Shopee.Models.Member)Session["Members"];
+                            <div class="home-product-details-cart">
+                                <div class="home-product-details-cart-item">
+                                    <i class="fas fa-cart-plus"></i>
+                                    <a href="@Url.Action("Add", "Cart", new { ProductId = Model.Id ,MemberId=member.Id})" class="home-product-details-cart-label">Thêm vào giỏ hàng</a>
+                                </div>
+                                <a href="@Url.Action("Index", "Cart", new {ProductId=Model.Id})" class="btn btn--primary">Mua hàng</a>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <h2 class="product-category__heading">Các sản phẩm liên quan</h2>
+        <div class="row">
+            @{
+                Shopee.Models.ShopeeEntities db = new Shopee.Models.ShopeeEntities();
+                List<Shopee.Models.Product> items = db.Products.Where(p=>p.CategoryId==Model.CategoryId).ToList();
+                for (int i = 0; i < items.Count; i++)
+                {
+                    <div class="col l-2-4 m-4 c-6 home-product-item-wrapper">
+                        <a class="home-product-item" href="@Url.Action("Details", "Home", new {ProductId=items[i].Id})">
+                            <div class="home-product-item-img" style="background-image: url(@items[i].Picture)"></div>
+                            <h4 class="home-product-item__name">@items[i].Name</h4>
+                            <div class="home-product-item__price">
+                                <span class="home-product-item__price-old">@items[i].OldPrice đ</span>
+                                <span class="home-product-item__price-current">@items[i].NewPrice đ</span>
+                            </div>
+                            <div class="home-product-item__action">
+                                <span class="home-product-item__like home-product-item__like--liked">
+                                    <i class="home-product-item__like-icon-empty far fa-heart"></i>
+                                    <i class="home-product-item__like-icon-fill fas fa-heart"></i>
+                                </span>
+                                <div class="home-product-item__rating">
+                                    <i class="home-product-item__star--gold fas fa-star"></i>
+                                    <i class="home-product-item__star--gold fas fa-star"></i>
+                                    <i class="home-product-item__star--gold fas fa-star"></i>
+                                    <i class="home-product-item__star--gold fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="home-product-item__sold">@items[i].Bought đã bán</span>
+                            </div>
+                            <div class="home-product-item__origin">
+                                <span class="home-product-item__brand">Whoo</span>
+                                <span class="home-product-item__origin-name">Nhật Bản</span>
+                            </div>
+                            <div class="home-product-item__favourite">
+                                <i class="fas fa-check"></i>
+                                <span>Yêu thích</span>
+                            </div>
+                            <div class="home-product-item__sale-off">
+                                <span class="home-product-item__sale-off-percent">@items[i].Sale</span>
+                                <span class="home-product-item__sale-off-label">GIẢM</span>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
         </div>
     </div>
 </div>

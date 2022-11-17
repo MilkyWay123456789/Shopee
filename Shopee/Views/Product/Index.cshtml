@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_ShopeeLayout.cshtml";
+    int TotalPage = (int)ViewBag.TotalPage;
 }
 
 <div class="app__container">
@@ -17,10 +18,10 @@
                         @{
                             Shopee.Models.ShopeeEntities db = new Shopee.Models.ShopeeEntities();
                             List<Shopee.Models.Category> items = db.Categories.ToList();
-                            for (int i=0;i<items.Count;i++)
+                            for (int i = 0; i < items.Count; i++)
                             {
                                 <li class="category-item">
-                                    <a href="@Url.Action("Index","Product",new {CategoryId=items[i].Id})" class="category-item__link">@items[i].Name</a>
+                                    <a href="@Url.Action("Index", "Product", new { CategoryId = items[i].Id })" class="category-item__link">@items[i].Name</a>
                                 </li>
                             }
                         }
@@ -69,33 +70,14 @@
 
                 <nav class="mobile-category">
                     <ul class="mobile-category__list">
-                        <li class="mobile-category__item">
-                            <a href="" class="mobile-category__link">Dụng cụ & thiết bị tiện ích</a>
-                        </li>
-                        <li class="mobile-category__item">
-                            <a href="" class="mobile-category__link">Dụng cụ & thiết bị tiện ích</a>
-                        </li>
-                        <li class="mobile-category__item">
-                            <a href="" class="mobile-category__link">Dụng cụ & thiết bị tiện ích</a>
-                        </li>
-                        <li class="mobile-category__item">
-                            <a href="" class="mobile-category__link">Dụng cụ & thiết bị tiện ích</a>
-                        </li>
-                        <li class="mobile-category__item">
-                            <a href="" class="mobile-category__link">Dụng cụ & thiết bị tiện ích</a>
-                        </li>
-                        <li class="mobile-category__item">
-                            <a href="" class="mobile-category__link">Dụng cụ & thiết bị tiện ích</a>
-                        </li>
-                        <li class="mobile-category__item">
-                            <a href="" class="mobile-category__link">Dụng cụ & thiết bị tiện ích</a>
-                        </li>
-                        <li class="mobile-category__item">
-                            <a href="" class="mobile-category__link">Dụng cụ & thiết bị tiện ích</a>
-                        </li>
-                        <li class="mobile-category__item">
-                            <a href="" class="mobile-category__link">Dụng cụ & thiết bị tiện ích</a>
-                        </li>
+                        @{
+                            for (int i = 0; i < items.Count; i++)
+                            {
+                                <li class="mobile-category__item">
+                                    <a href="@Url.Action("Index", "Product", new { CategoryId = items[i].Id })" class="mobile-category__link">@items[i].Name</a>
+                                </li>
+                             }
+                          }
                     </ul>
                 </nav>
 
@@ -157,28 +139,21 @@
                             <i class="pagination-item__icon fas fa-angle-left"></i>
                         </a>
                     </li>
-                    <li class="pagination-item pagination-item--active">
-                        <a class="pagination-item__link" href="">1</a>
-                    </li>
-                    <li class="pagination-item">
-                        <a class="pagination-item__link" href="">2</a>
-                    </li>
-                    <li class="pagination-item">
-                        <a class="pagination-item__link" href="">3</a>
-                    </li>
-                    <li class="pagination-item">
-                        <a class="pagination-item__link" href="">4</a>
-                    </li>
-                    <li class="pagination-item">
-                        <a class="pagination-item__link" href="">5</a>
-                    </li>
-                    <li class="pagination-item">
-                        <a class="pagination-item__link" href="">...</a>
-                    </li>
-                    <li class="pagination-item">
-                        <a class="pagination-item__link" href="">14</a>
-                    </li>
-
+                    @{
+                        var curentRouteValues = new RouteValueDictionary(Url.RequestContext.RouteData.Values);
+                        var querystring = Request.QueryString;
+                        foreach (var key in querystring.AllKeys)
+                        {
+                            curentRouteValues.Add(key, querystring[key]);
+                        }
+                        for (int i = 1; i <= TotalPage; i++)
+                        {
+                            curentRouteValues["Page"] = i;
+                            <li class="pagination-item pagination-item--active">
+                                <a class="pagination-item__link" href="@Url.RouteUrl(curentRouteValues)">@i</a>
+                            </li>
+                        }
+                    }
                     <li class="pagination-item">
                         <a class="pagination-item__link">
                             <i class="pagination-item__icon fas fa-angle-right"></i>

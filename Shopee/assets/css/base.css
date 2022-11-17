@@ -72,7 +72,7 @@ html{
 }
 
 /*--Modal--*/
-.modal{
+.modal {
     position: fixed;
     top: 0;
     right: 0;
@@ -80,6 +80,17 @@ html{
     left: 0;
     display: flex;
     animation: fadeIn liner 0.1s;
+    visibility: hidden;
+}
+
+.overlay_close{
+    position:absolute;
+    width:100%;
+    height:100%;
+}
+
+.modal:target {
+    visibility: visible;
 }
 
 .modal__overlay{
@@ -138,8 +149,12 @@ html{
     background-color: #c3c3c3;
 }
 
+.btn-link{
+    text-decoration:none;
+    color: var(--white-color);
+}
 /*Selection*/
-.select-input{
+.select-input {
     position: relative;
     min-width: 200px;
     height: 34px;
@@ -199,7 +214,7 @@ html{
     list-style: none;
 }
 
-.pagination-item{
+.pagination-item {
     margin: 0 12px;
 }
 

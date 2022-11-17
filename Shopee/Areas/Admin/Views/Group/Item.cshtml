@@ -1,0 +1,19 @@
+﻿@model Shopee.Models.Group
+@{
+    ViewBag.Title = "Item";
+    Layout = "~/Areas/Admin/Views/Shared/_ShopeeAdmin.cshtml";
+}
+
+<form method="post" id="FormMember" action="@Url.Action("Save","Group")">
+    <div class="card-body">
+        <input type="hidden" value="@Model.Id" name="Id" />
+        <div class="form-group">
+            <label>Tên nhóm</label>
+            <input type="text" class="form-control" name="Name" value="@Model.Name" placeholder="Tên nhóm">
+        </div>
+    </div>
+    <div class="card-footer">
+        <button id="submit-member" class="btn btn-primary">Lưu</button>
+    </div>
+</form>
+

@@ -14,11 +14,22 @@ namespace Shopee.Models
     
     public partial class Member
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Member()
+        {
+            this.ProductOfMembers = new HashSet<ProductOfMember>();
+            this.Purchases = new HashSet<Purchase>();
+        }
+    
         public System.Guid Id { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }
-        public Nullable<System.Guid> ProductId { get; set; }
+        public string Email { get; set; }
+        public string Picture { get; set; }
     
-        public virtual Product Product { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductOfMember> ProductOfMembers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Purchase> Purchases { get; set; }
     }
 }

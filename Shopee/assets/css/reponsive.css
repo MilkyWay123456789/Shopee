@@ -21,7 +21,7 @@
     .header__cart-list::after{
         display:none;
     }
-    .app__container{
+    .app__container {
         margin-top: calc(var(--header-height) + var(--header-sort-bar-height));
     }
     .header__sort-bar{
@@ -111,7 +111,21 @@
     .header__logo-img{
         width: 110px;
     }
-    .footer__content{
+
+    .product-detail {
+        margin-top: 100px;
+    }
+
+    .product-detail__content__heading {
+        text-align: justify;
+    }
+
+    .product-detail__button {
+        margin-top: 40px;
+        font-size: 1.6rem;
+    }
+
+    .footer__content {
         padding: 0 16px;
     }
     .footer__heading{
