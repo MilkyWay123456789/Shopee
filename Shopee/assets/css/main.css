@@ -1977,14 +1977,18 @@ i.home-product-item__like-icon-fill{
 .cart__footer-pay-price {
     font-size: 1.6rem;
     margin:0 8px;
+    display:flex !important;
+}
+
+.btn-online{
+    margin-left:10px !important;
 }
 
 /*Member*/
-
-.user{
-    margin-top:10px;
-    margin-left:400px;
-    align-items:center;
+.user {
+    margin-top: 10px;
+    margin-left: 400px;
+    align-items: center;
 }
 
 .user__heading{

@@ -2,80 +2,8 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_ShopeeLayout.cshtml";
+    int count=1;
 }
-
-@*<div class="app__container">
-    <div class="grid wide">
-            <div class="home-product-details">
-                    <img src="@Model.Picture" alt="" class="home-product-details-img">
-                    <div class="home-product-details-description">
-                        <span class="home-product-details-label">Yêu thích+</span>
-                        <span class="home-product-details-name">@Model.Name</span>
-                        <div class="home-product-details-ex">
-                            <div class="home-product-details-rate">
-                                <span class="home-product-details-rate-number">4.9</span>
-                                <i class="home-product-details-icon fas fa-star"></i>
-                                <i class="home-product-details-icon fas fa-star"></i>
-                                <i class="home-product-details-icon fas fa-star"></i>
-                                <i class="home-product-details-icon fas fa-star"></i>
-                                <i class="home-product-details-icon fas fa-star"></i>
-                            </div>
-                            <div class="home-product-details-expected">
-                                <span class="home-product-details-expected-number">@Model.Review k</span>
-                                <span class="home-product-details-expected-label">Đánh giá</span>
-                            </div>
-                            <div class="home-product-details-bought">
-                                <span class="home-product-details-bought-number">@Model.Bought k</span>
-                                <span class="home-product-details-bought-label">Đã bán</span>
-                                <i class="home-product-details-bought-icon fas fa-circle-question"></i>
-                            </div>
-                        </div>
-                        <div class="home-product-details__price">
-                            <span class="home-product-item__price-old">@Model.OldPrice đ</span>
-                            <span class="home-product-item__price-current">@Model.NewPrice đ</span>
-                        </div>
-                        <div class="home-product-details-sale">
-                            <span class="home-product-details-sale-label">Mã sale</span>
-                            <span class="home-product-details-sale-number">@Model.Sale k</span>
-                        </div>
-                        <div class="home-product-details-travel">
-                            <span class="home-product-details-travel-label">Vận chuyển</span>
-                            <span class="home-product-details-travel-word">@Model.Travel </span>
-                        </div>
-                        <div class="home-product-details-count">
-                            <span class="home-product-details-count-label">Số lượng</span>
-                            <span class="home-product-details-apart">-</span>
-                            <span class="home-product-details-number">1</span>
-                            <span class="home-product-details-add">+</span>
-                            <span class="home-product-details-word">100 sản phẩm có sẵn</span>
-                        </div>
-                        @{
-                            if (Session["Members"] == null)
-                            {
-                                <div class="home-product-details-cart">
-                                    <div class="home-product-details-cart-item">
-                                        <i class="fas fa-cart-plus"></i>
-                                        <a href="#Login" class="home-product-details-cart-label">Thêm vào giỏ hàng</a>
-                                    </div>
-                                    <a href="#Login" class="btn btn--primary">Mua hàng</a>
-                                </div>
-                            }
-                            else
-                            {
-                                var member = (Shopee.Models.Member)Session["Members"];
-                                <div class="home-product-details-cart">
-                                    <div class="home-product-details-cart-item">
-                                        <i class="fas fa-cart-plus"></i>
-                                        <a href="@Url.Action("Add", "Cart", new { ProductId = Model.Id ,MemberId=member.Id})" class="home-product-details-cart-label">Thêm vào giỏ hàng</a>
-                                    </div>
-                                    <a href="@Url.Action("Index", "Cart", new {ProductId=Model.Id})" class="btn btn--primary">Mua hàng</a>
-                                </div>
-                            }
-                        }
-                    </div>
-            </div>
-    </div>
-</div>*@
 
 <div class="product-detail">
     <div class="grid wide">
@@ -138,8 +66,8 @@
                         <p>Số lượng</p>
                         <div class="product-detail__quantity-number">
                             <button>-</button>
-                            <button>@Model.Count</button>
-                            <button>+</button>
+                            <button>@count</button>
+                            <button onclick="AddCount(@count)">+</button>
                         </div>
                         <p>2 sản phẩm có sắn</p>
                     </div>
@@ -174,11 +102,12 @@
         <div class="row">
             @{
                 Shopee.Models.ShopeeEntities db = new Shopee.Models.ShopeeEntities();
-                List<Shopee.Models.Product> items = db.Products.Where(p=>p.CategoryId==Model.CategoryId).ToList();
+                List<Shopee.Models.Product> items = db.Products.Where(p => p.CategoryId == Model.CategoryId).ToList();
+                //string url = Request.QueryString["Id"];
                 for (int i = 0; i < items.Count; i++)
                 {
                     <div class="col l-2-4 m-4 c-6 home-product-item-wrapper">
-                        <a class="home-product-item" href="@Url.Action("Details", "Home", new {ProductId=items[i].Id})">
+                        <a class="home-product-item" onLick="DeleteUrl()" href="@Url.Action("Details", "Home", new { ProductId = items[i].Id })">
                             <div class="home-product-item-img" style="background-image: url(@items[i].Picture)"></div>
                             <h4 class="home-product-item__name">@items[i].Name</h4>
                             <div class="home-product-item__price">
@@ -218,4 +147,12 @@
         </div>
     </div>
 </div>
+<script>
+    function DeleteUrl() {
+        return Request.QueryString.Clear();
+    }
+    function AddCount(count) {
+        count = count + 1;
+    }
+</script>
 

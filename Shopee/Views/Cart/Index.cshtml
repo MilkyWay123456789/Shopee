@@ -46,6 +46,7 @@
                     <span class="cart__footer-pay-label">Tổng thanh toán(1)</span>
                     <span class="cart__footer-pay-price">đ @Model.NewPrice</span>
                     <button class="btn btn--primary"><a class="btn-link" href="@Url.Action("Add", "Purchase", new {ProductId=Model.Id,MemberId=member.Id})">Thanh toán</a></button>
+                    <button class="btn btn--primary btn-online"><a class="btn-link" href="@Url.Action("Payment", "Home")">Thanh toán trực tuyến</a></button>
                 </div>
             </div>
         </div>
