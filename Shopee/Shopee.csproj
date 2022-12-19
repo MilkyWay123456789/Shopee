@@ -203,6 +203,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ShopeeContext.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>ShopeeContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Util.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

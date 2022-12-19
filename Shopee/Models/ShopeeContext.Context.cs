@@ -27,12 +27,13 @@ namespace Shopee.Models
     
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Member> Members { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductOfMember> ProductOfMembers { get; set; }
         public virtual DbSet<Purchase> Purchases { get; set; }
         public virtual DbSet<Administrator> Administrators { get; set; }
         public virtual DbSet<Credential> Credentials { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
     }
 }

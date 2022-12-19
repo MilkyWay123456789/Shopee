@@ -116,6 +116,7 @@ namespace Shopee.Controllers
                 {
                     if (vnp_ResponseCode == "00")
                     {
+
                         //Thanh toán thành công
                         ViewBag.Message = "Thanh toán thành công hóa đơn " + orderId + " | Mã giao dịch: " + vnpayTranId;
                     }

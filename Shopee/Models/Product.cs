@@ -27,7 +27,7 @@ namespace Shopee.Models
         public Nullable<int> NewPrice { get; set; }
         public Nullable<int> Sale { get; set; }
         public string Travel { get; set; }
-        public Nullable<int> Count { get; set; }
+        public Nullable<int> Counts { get; set; }
         public Nullable<System.Guid> CategoryId { get; set; }
         public string Review { get; set; }
         public Nullable<int> Bought { get; set; }

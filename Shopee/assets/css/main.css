@@ -1969,15 +1969,18 @@ i.home-product-item__like-icon-fill{
     font-size: 1.6rem;
 }
 
+.cart__footer-pay {
+    display: flex;
+}
+
 .cart__footer-pay-label {
     font-size: 1.6rem;
-    margin-left:500px;
+    margin-left: 500px;
 }
 
 .cart__footer-pay-price {
     font-size: 1.6rem;
     margin:0 8px;
-    display:flex !important;
 }
 
 .btn-online{

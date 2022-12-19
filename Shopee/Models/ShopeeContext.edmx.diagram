@@ -7,14 +7,10 @@
       <Diagram DiagramId="3b760ba23a5e4a5a9e9c8cdc5f998433" Name="Diagram1" ZoomLevel="90">
         <EntityTypeShape EntityType="ShopeeModel.Category" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopeeModel.Member" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShopeeModel.Product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopeeModel.ProductOfMember" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
-        <AssociationConnector Association="ShopeeModel.FK_Product_Category" ManuallyRouted="false" />
         <AssociationConnector Association="ShopeeModel.FK_ProductOfMember_Member" ManuallyRouted="false" />
-        <AssociationConnector Association="ShopeeModel.FK_ProductOfMember_Product" ManuallyRouted="false" />
         <EntityTypeShape EntityType="ShopeeModel.Purchase" Width="1.5" PointX="1.125" PointY="4.125" />
         <AssociationConnector Association="ShopeeModel.FK_Purchase_Member" />
-        <AssociationConnector Association="ShopeeModel.FK_Purchase_Product" />
         <EntityTypeShape EntityType="ShopeeModel.Administrator" Width="1.5" PointX="9.875" PointY="7" />
         <EntityTypeShape EntityType="ShopeeModel.Credential" Width="1.5" PointX="9.875" PointY="3.5" />
         <EntityTypeShape EntityType="ShopeeModel.Group" Width="1.5" PointX="7.625" PointY="4.625" />
@@ -22,6 +18,11 @@
         <AssociationConnector Association="ShopeeModel.FK_Administrator_Group" />
         <AssociationConnector Association="ShopeeModel.FK_Credential_Group" />
         <AssociationConnector Association="ShopeeModel.FK_Credential_Role" />
+        <EntityTypeShape EntityType="ShopeeModel.sysdiagram" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ShopeeModel.Product" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="ShopeeModel.FK_Product_Category" />
+        <AssociationConnector Association="ShopeeModel.FK_ProductOfMember_Product" />
+        <AssociationConnector Association="ShopeeModel.FK_Purchase_Product" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

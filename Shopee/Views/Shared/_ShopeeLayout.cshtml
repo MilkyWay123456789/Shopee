@@ -184,7 +184,20 @@
                     <div class="header__cart">
                         <div class="header__cart-wrap">
                             <i class="header__cart-icon fas fa-shopping-cart"></i>
-                            <span class="header__cart-notice">3</span>
+                            @{
+                                if (Session["Members"] == null)
+                                {
+                                    <span class="header__cart-notice"></span>
+                                }
+                                else
+                                {
+                                    Shopee.Models.ShopeeEntities db = new Shopee.Models.ShopeeEntities();
+                                    var members = (Shopee.Models.Member)Session["Members"];
+                                    List<Shopee.Models.ProductOfMember> items = db.ProductOfMembers.Where(a => a.MemberId == members.Id).ToList();
+                                    int count = items.Count();
+                                    <span class="header__cart-notice">@count</span>
+                                }
+                            }
 
                             <!--No cart: header__cart-list--no-cart-->
                             <div class="header__cart-list">
@@ -216,7 +229,7 @@
                                                                 <div class="header__cart-item-price-wrap">
                                                                     <span class="header__cart-item-price">@item.Product.NewPrice</span>
                                                                     <span class="header__cart-item-multily">x</span>
-                                                                    <span class="header__cart-item-qnt">@item.Product.Count</span>
+                                                                    <span class="header__cart-item-qnt">@item.Product.Counts</span>
                                                                 </div>
                                                             </div>
                                                             <div class="header__cart-item-body">
