@@ -16,10 +16,10 @@ namespace Shopee.Controllers
         }
         public ActionResult Add(Guid ProductId, Guid MemberId)
         {
-            var item = db.ProductOfMembers.Where(x => x.MemberId == MemberId && x.ProductId == ProductId).FirstOrDefault();
+            var item = db.Carts.Where(x => x.MemberId == MemberId && x.ProductId == ProductId).FirstOrDefault();
             if(item == null)
             {
-                db.ProductOfMembers.Add(new ProductOfMember
+                db.Carts.Add(new Cart
                 {
                     Id= Guid.NewGuid(),
                     ProductId = ProductId,
@@ -28,17 +28,17 @@ namespace Shopee.Controllers
             }
             else
             {
-                db.ProductOfMembers.Remove(item);
+                db.Carts.Remove(item);
             }
             db.SaveChanges();
             return RedirectToAction("Index", "Cart", new {ProductId = ProductId });
         }
         public ActionResult Delete(Guid ProductId)
         {
-            var product = db.ProductOfMembers.Find(ProductId);
+            var product = db.Carts.Find(ProductId);
             if(product!=null)
             {
-                db.ProductOfMembers.Remove(product);
+                db.Carts.Remove(product);
                 db.SaveChanges();
             }
             return RedirectToAction("Index", "Home");

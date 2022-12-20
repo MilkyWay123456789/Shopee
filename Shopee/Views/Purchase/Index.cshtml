@@ -18,7 +18,7 @@
             @{
                 Shopee.Models.ShopeeEntities db = new Shopee.Models.ShopeeEntities();
                 var member = (Shopee.Models.Member)Session["Members"];
-                var items = db.Purchases.Where(p => p.MemberId == member.Id).ToList();
+                var items = db.Orders.Where(p => p.MemberId == member.Id).ToList();
                 foreach (var item in items)
                     {
                     <div class="purchase__content">

@@ -16,6 +16,15 @@
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="GroupId" Type="uniqueidentifier" />
         </EntityType>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProductId" Type="uniqueidentifier" />
+          <Property Name="MemberId" Type="uniqueidentifier" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="Id" />
@@ -48,6 +57,20 @@
           <Property Name="Email" Type="nvarchar" MaxLength="250" />
           <Property Name="Picture" Type="nvarchar" MaxLength="500" />
         </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProductId" Type="uniqueidentifier" />
+          <Property Name="MemberId" Type="uniqueidentifier" />
+          <Property Name="Day" Type="datetime" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="Id" />
@@ -64,25 +87,6 @@
           <Property Name="Bought" Type="int" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="Picture" Type="nvarchar" MaxLength="500" />
-        </EntityType>
-        <EntityType Name="ProductOfMember">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ProductId" Type="uniqueidentifier" />
-          <Property Name="MemberId" Type="uniqueidentifier" />
-          <Property Name="CreatedDate" Type="datetime" />
-        </EntityType>
-        <EntityType Name="Purchase">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ProductId" Type="uniqueidentifier" />
-          <Property Name="MemberId" Type="uniqueidentifier" />
-          <Property Name="Day" Type="datetime" />
-          <Property Name="Status" Type="bit" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -153,61 +157,61 @@
         </Association>
         <Association Name="FK_ProductOfMember_Member">
           <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
-          <End Role="ProductOfMember" Type="Self.ProductOfMember" Multiplicity="*" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Member">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="ProductOfMember">
+            <Dependent Role="Cart">
               <PropertyRef Name="MemberId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductOfMember_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
-          <End Role="ProductOfMember" Type="Self.ProductOfMember" Multiplicity="*" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="ProductOfMember">
+            <Dependent Role="Cart">
               <PropertyRef Name="ProductId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Purchase_Member">
           <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
-          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Member">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Purchase">
+            <Dependent Role="Order">
               <PropertyRef Name="MemberId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Purchase_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
-          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Purchase">
+            <Dependent Role="Order">
               <PropertyRef Name="ProductId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ShopeeModelStoreContainer">
           <EntitySet Name="Administrator" EntityType="Self.Administrator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Credential" EntityType="Self.Credential" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProductOfMember" EntityType="Self.ProductOfMember" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Purchase" EntityType="Self.Purchase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Administrator_Group" Association="Self.FK_Administrator_Group">
@@ -228,19 +232,19 @@
           </AssociationSet>
           <AssociationSet Name="FK_ProductOfMember_Member" Association="Self.FK_ProductOfMember_Member">
             <End Role="Member" EntitySet="Member" />
-            <End Role="ProductOfMember" EntitySet="ProductOfMember" />
+            <End Role="Cart" EntitySet="Cart" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductOfMember_Product" Association="Self.FK_ProductOfMember_Product">
             <End Role="Product" EntitySet="Product" />
-            <End Role="ProductOfMember" EntitySet="ProductOfMember" />
+            <End Role="Cart" EntitySet="Cart" />
           </AssociationSet>
           <AssociationSet Name="FK_Purchase_Member" Association="Self.FK_Purchase_Member">
             <End Role="Member" EntitySet="Member" />
-            <End Role="Purchase" EntitySet="Purchase" />
+            <End Role="Order" EntitySet="Order" />
           </AssociationSet>
           <AssociationSet Name="FK_Purchase_Product" Association="Self.FK_Purchase_Product">
             <End Role="Product" EntitySet="Product" />
-            <End Role="Purchase" EntitySet="Purchase" />
+            <End Role="Order" EntitySet="Order" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -264,45 +268,12 @@
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Picture" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ProductOfMembers" Relationship="Self.FK_ProductOfMember_Member" FromRole="Member" ToRole="ProductOfMember" />
-          <NavigationProperty Name="Purchases" Relationship="ShopeeModel.FK_Purchase_Member" FromRole="Member" ToRole="Purchase" />
+          <NavigationProperty Name="Carts" Relationship="ShopeeModel.FK_ProductOfMember_Member" FromRole="Member" ToRole="Cart" />
+          <NavigationProperty Name="Orders" Relationship="ShopeeModel.FK_Purchase_Member" FromRole="Member" ToRole="Order" />
         </EntityType>
-        <EntityType Name="ProductOfMember">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="ProductId" Type="Guid" />
-          <Property Name="MemberId" Type="Guid" />
-          <NavigationProperty Name="Member" Relationship="Self.FK_ProductOfMember_Member" FromRole="ProductOfMember" ToRole="Member" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Product" Relationship="ShopeeModel.FK_ProductOfMember_Product" FromRole="ProductOfMember" ToRole="Product" />
-        </EntityType>
-        <Association Name="FK_ProductOfMember_Member">
-          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
-          <End Role="ProductOfMember" Type="Self.ProductOfMember" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Member">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductOfMember">
-              <PropertyRef Name="MemberId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="ShopeeEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Members" EntityType="Self.Member" />
-          <EntitySet Name="ProductOfMembers" EntityType="Self.ProductOfMember" />
-          <AssociationSet Name="FK_ProductOfMember_Member" Association="Self.FK_ProductOfMember_Member">
-            <End Role="Member" EntitySet="Members" />
-            <End Role="ProductOfMember" EntitySet="ProductOfMembers" />
-          </AssociationSet>
-          <EntitySet Name="Purchases" EntityType="ShopeeModel.Purchase" />
-          <AssociationSet Name="FK_Purchase_Member" Association="ShopeeModel.FK_Purchase_Member">
-            <End Role="Member" EntitySet="Members" />
-            <End Role="Purchase" EntitySet="Purchases" />
-          </AssociationSet>
           <EntitySet Name="Administrators" EntityType="ShopeeModel.Administrator" />
           <EntitySet Name="Credentials" EntityType="ShopeeModel.Credential" />
           <EntitySet Name="Groups" EntityType="ShopeeModel.Group" />
@@ -325,39 +296,25 @@
             <End Role="Category" EntitySet="Categories" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
+          <EntitySet Name="Carts" EntityType="ShopeeModel.Cart" />
+          <EntitySet Name="Orders" EntityType="ShopeeModel.Order" />
+          <AssociationSet Name="FK_ProductOfMember_Member" Association="ShopeeModel.FK_ProductOfMember_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
           <AssociationSet Name="FK_ProductOfMember_Product" Association="ShopeeModel.FK_ProductOfMember_Product">
             <End Role="Product" EntitySet="Products" />
-            <End Role="ProductOfMember" EntitySet="ProductOfMembers" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_Member" Association="ShopeeModel.FK_Purchase_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_Purchase_Product" Association="ShopeeModel.FK_Purchase_Product">
             <End Role="Product" EntitySet="Products" />
-            <End Role="Purchase" EntitySet="Purchases" />
+            <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Purchase">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="ProductId" Type="Guid" />
-          <Property Name="MemberId" Type="Guid" />
-          <Property Name="Day" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Member" Relationship="ShopeeModel.FK_Purchase_Member" FromRole="Purchase" ToRole="Member" />
-          <Property Name="Status" Type="Boolean" />
-          <NavigationProperty Name="Product" Relationship="ShopeeModel.FK_Purchase_Product" FromRole="Purchase" ToRole="Product" />
-        </EntityType>
-        <Association Name="FK_Purchase_Member">
-          <End Type="ShopeeModel.Member" Role="Member" Multiplicity="0..1" />
-          <End Type="ShopeeModel.Purchase" Role="Purchase" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Member">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Purchase">
-              <PropertyRef Name="MemberId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Administrator">
           <Key>
             <PropertyRef Name="Id" />
@@ -462,8 +419,8 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="Picture" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Category" Relationship="ShopeeModel.FK_Product_Category" FromRole="Product" ToRole="Category" />
-          <NavigationProperty Name="ProductOfMembers" Relationship="ShopeeModel.FK_ProductOfMember_Product" FromRole="Product" ToRole="ProductOfMember" />
-          <NavigationProperty Name="Purchases" Relationship="ShopeeModel.FK_Purchase_Product" FromRole="Product" ToRole="Purchase" />
+          <NavigationProperty Name="Carts" Relationship="ShopeeModel.FK_ProductOfMember_Product" FromRole="Product" ToRole="Cart" />
+          <NavigationProperty Name="Orders" Relationship="ShopeeModel.FK_Purchase_Product" FromRole="Product" ToRole="Order" />
         </EntityType>
         <Association Name="FK_Product_Category">
           <End Type="ShopeeModel.Category" Role="Category" Multiplicity="0..1" />
@@ -477,26 +434,77 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ProductId" Type="Guid" />
+          <Property Name="MemberId" Type="Guid" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Member" Relationship="ShopeeModel.FK_ProductOfMember_Member" FromRole="Cart" ToRole="Member" />
+          <NavigationProperty Name="Product" Relationship="ShopeeModel.FK_ProductOfMember_Product" FromRole="Cart" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="ProductId" Type="Guid" />
+          <Property Name="MemberId" Type="Guid" />
+          <Property Name="Day" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Member" Relationship="ShopeeModel.FK_Purchase_Member" FromRole="Order" ToRole="Member" />
+          <NavigationProperty Name="Product" Relationship="ShopeeModel.FK_Purchase_Product" FromRole="Order" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_ProductOfMember_Member">
+          <End Type="ShopeeModel.Member" Role="Member" Multiplicity="0..1" />
+          <End Type="ShopeeModel.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProductOfMember_Product">
           <End Type="ShopeeModel.Product" Role="Product" Multiplicity="0..1" />
-          <End Type="ShopeeModel.ProductOfMember" Role="ProductOfMember" Multiplicity="*" />
+          <End Type="ShopeeModel.Cart" Role="Cart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="ProductOfMember">
+            <Dependent Role="Cart">
               <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchase_Member">
+          <End Type="ShopeeModel.Member" Role="Member" Multiplicity="0..1" />
+          <End Type="ShopeeModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="MemberId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Purchase_Product">
           <End Type="ShopeeModel.Product" Role="Product" Multiplicity="0..1" />
-          <End Type="ShopeeModel.Purchase" Role="Purchase" Multiplicity="*" />
+          <End Type="ShopeeModel.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Purchase">
+            <Dependent Role="Order">
               <PropertyRef Name="ProductId" />
             </Dependent>
           </ReferentialConstraint>
@@ -523,27 +531,6 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Picture" ColumnName="Picture" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProductOfMembers">
-            <EntityTypeMapping TypeName="ShopeeModel.ProductOfMember">
-              <MappingFragment StoreEntitySet="ProductOfMember">
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Purchases">
-            <EntityTypeMapping TypeName="ShopeeModel.Purchase">
-              <MappingFragment StoreEntitySet="Purchase">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Day" ColumnName="Day" />
-                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -611,6 +598,31 @@
                 <ScalarProperty Name="NewPrice" ColumnName="NewPrice" />
                 <ScalarProperty Name="OldPrice" ColumnName="OldPrice" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="ShopeeModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="ShopeeModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

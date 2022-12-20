@@ -12,7 +12,7 @@ namespace Shopee.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductOfMember
+    public partial class Cart
     {
         public System.Guid Id { get; set; }
         public Nullable<System.Guid> ProductId { get; set; }

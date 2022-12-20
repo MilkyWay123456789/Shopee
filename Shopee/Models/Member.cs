@@ -17,8 +17,8 @@ namespace Shopee.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Member()
         {
-            this.ProductOfMembers = new HashSet<ProductOfMember>();
-            this.Purchases = new HashSet<Purchase>();
+            this.Carts = new HashSet<Cart>();
+            this.Orders = new HashSet<Order>();
         }
     
         public System.Guid Id { get; set; }
@@ -28,8 +28,8 @@ namespace Shopee.Models
         public string Picture { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductOfMember> ProductOfMembers { get; set; }
+        public virtual ICollection<Cart> Carts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Purchase> Purchases { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }
