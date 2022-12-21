@@ -59,7 +59,7 @@
     <div class="modal__body">
         @*Login form*@
         <div class="auth-form">
-            <form class="auth-form__container" method="post" action="@Url.Action("Add", "Purchase", new { ProductId = Model.Id, MemberId = member.Id })">
+            <form class="auth-form__container" method="post" action="@Url.Action("Add", "Purchase", new { ProductId = Model.Id, MemberId = member.Id,price=Model.NewPrice })">
                 <div class="auth-form__header">
                     <h3 class="auth-form__heading">Thông tin mua hàng</h3>
                 </div>

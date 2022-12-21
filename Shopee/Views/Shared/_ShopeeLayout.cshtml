@@ -187,7 +187,23 @@
                             @{
                                 if (Session["Members"] == null)
                                 {
-                                    <span class="header__cart-notice"></span>
+                                    if (Request.Cookies["Cart"] == null)
+                                    {
+                                        <span class="header__cart-notice"></span>
+                                    }
+                                    else
+                                    {
+                                        int count = 0;
+                                        if (Request.Cookies["Cart"] != null)
+                                        {
+                                            var value = Request.Cookies["Cart"].Value;
+                                            foreach (var item in value)
+                                            {
+                                                count++;
+                                            }
+                                        }
+                                        <span class="header__cart-notice">@count</span>
+                                    }
                                 }
                                 else
                                 {
@@ -208,10 +224,37 @@
                                     @{
                                         if (Session["Members"] == null)
                                         {
-                                            <img src="./assets/img/cart.jpg" alt="" class="header__cart-no-cart-img">
-                                            <p class="header__cart-list-no-cart-msg">
-                                                Chưa có sản phẩm
-                                            </p>
+                                            if (Request.Cookies["Cart"] == null)
+                                            {
+                                                <img src="./assets/img/cart.jpg" alt="" class="header__cart-no-cart-img">
+                                                <p class="header__cart-list-no-cart-msg">
+                                                    Chưa có sản phẩm
+                                                </p>
+                                            }
+                                            else
+                                            {
+                                                <li class="header__cart-item">
+                                                    <a href="@Url.Action("Index", "Cart", new {ProductId=Request.Cookies["Cart"]["Id"]})" class="header__cart-item_link">
+                                                        <img src="@Request.Cookies["Cart"]["Picture"]" alt="" class="header__cart-img">
+                                                        <div class="header__cart-item-info">
+                                                            <div class="header__cart-item-head">
+                                                                <h5 class="header__cart-item-name">@Request.Cookies["Cart"]["Name"]</h5>
+                                                                <div class="header__cart-item-price-wrap">
+                                                                    <span class="header__cart-item-price">@Request.Cookies["Cart"]["Price"]</span>
+                                                                    <span class="header__cart-item-multily">x</span>
+                                                                    <span class="header__cart-item-qnt">1</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="header__cart-item-body">
+                                                                <span class="header__cart-item-description">
+                                                                    Phân loại: Bạc
+                                                                </span>
+                                                                <a href="@Url.Action("Delete", "Cart", new {ProductId=Request.Cookies["Cart"]["Id"]})" class="header__cart-item-remove">Xoá</a>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                            }
                                         }
                                         else
                                         {

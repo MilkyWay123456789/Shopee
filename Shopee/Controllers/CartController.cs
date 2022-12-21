@@ -43,5 +43,21 @@ namespace Shopee.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+        public ActionResult AddToCartCookie(Guid ProductId)
+        {
+            HttpCookie CartCookie = new HttpCookie("Cart");
+            var product = db.Products.Find(ProductId);
+            if (product!=null)
+            {
+                CartCookie["Id"] = ProductId.ToString();
+                CartCookie["Name"] = product.Name;
+                CartCookie["Picture"] = product.Picture;
+                CartCookie["Price"] = product.NewPrice.ToString();
+                CartCookie.Expires = DateTime.Now.AddDays(1d);
+                Response.Cookies.Add(CartCookie);
+            }
+            return RedirectToAction("Index", "Home");
+            //return RedirectToAction("Index", "Cart", new { ProductId = ProductId });
+        }
     }
 }

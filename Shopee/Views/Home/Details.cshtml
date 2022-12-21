@@ -78,7 +78,7 @@
                             <div class="home-product-details-cart">
                                 <div class="home-product-details-cart-item">
                                     <i class="fas fa-cart-plus"></i>
-                                    <a href="#Login" class="home-product-details-cart-label">Thêm vào giỏ hàng</a>
+                                    <a href="@Url.Action("AddToCartCookie", "Cart", new {ProductId=Model.Id})" class="home-product-details-cart-label">Thêm vào giỏ hàng</a>
                                 </div>
                                 <a href="#Login" class="btn btn--primary">Mua hàng</a>
                             </div>

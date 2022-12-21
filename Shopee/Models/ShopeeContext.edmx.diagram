@@ -18,12 +18,12 @@
         <EntityTypeShape EntityType="ShopeeModel.Product" Width="1.5" PointX="3" PointY="0.75" />
         <AssociationConnector Association="ShopeeModel.FK_Product_Category" />
         <EntityTypeShape EntityType="ShopeeModel.Cart" Width="1.5" PointX="0.875" PointY="5.375" />
-        <EntityTypeShape EntityType="ShopeeModel.Order" Width="1.5" PointX="5.25" PointY="2" />
         <AssociationConnector Association="ShopeeModel.FK_ProductOfMember_Member" />
         <AssociationConnector Association="ShopeeModel.FK_ProductOfMember_Product" />
+        <EntityTypeShape EntityType="ShopeeModel.Order" Width="1.5" PointX="5.375" PointY="1.5" />
         <AssociationConnector Association="ShopeeModel.FK_Purchase_Member" />
         <AssociationConnector Association="ShopeeModel.FK_Purchase_Product" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

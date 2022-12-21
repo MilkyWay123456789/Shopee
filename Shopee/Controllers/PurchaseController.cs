@@ -16,7 +16,7 @@ namespace Shopee.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Add(Guid ProductId, Guid MemberId,FormCollection req)
+        public ActionResult Add(Guid ProductId, Guid MemberId,int price,FormCollection req)
         {
             var item=db.Orders.Where(p=>p.ProductId==ProductId && p.MemberId==MemberId).FirstOrDefault(); 
             if(item==null)
@@ -30,7 +30,8 @@ namespace Shopee.Controllers
                     Email=req["Email"],
                     Address=req["Address"],
                     Phone=req["Phone"],
-                    Name=req["Name"]
+                    Name=req["Name"],
+                    Status=false,
                 });
                 string content = System.IO.File.ReadAllText(Server.MapPath("~/content/template/neworder.html"));
 
@@ -38,7 +39,7 @@ namespace Shopee.Controllers
                 content = content.Replace("{{Phone}}", req["Phone"]);
                 content = content.Replace("{{Email}}", req["Email"]);
                 content = content.Replace("{{Address}}", req["Address"]);
-                //content = content.Replace("{{Total}}",price );
+                content = content.Replace("{{Total}}",price.ToString() );
                 var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
 
                 // Để Gmail cho phép SmtpClient kết nối đến server SMTP của nó với xác thực 
